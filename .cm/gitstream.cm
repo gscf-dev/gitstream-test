@@ -1,0 +1,47 @@
+# -*- mode: yaml -*-
+
+manifest:
+  version: 1.0
+
+automations:
+
+  # Additional automations for this repo.
+  # General automations present in https://github.com/gscf-dev/cm/blob/master/gitstream.cm
+
+  # Every PR containing Cucumber changes needs to be approved by a Cucumber code owner
+  cucumber_review:
+    if:
+      - {{ has.cucumber_changes }}
+    run:
+      - action: add-label@v1
+        args:
+          label: "cucumber"
+          color: "0E7016"
+      - action: add-comment@v1
+        args:
+          comment: |
+            This PR contains Cucumber test changes. A review from Test Automation team is required.
+      - action: require-reviewers@v1
+        args:
+          # list of Cucumber code owners
+          reviewers: [ YauheniBarvinski, katerynakomijn, matepapphu, mate-gscf, AnnaZawadzkaGSCF, obiro-gscf, zoltanmarlok, orslatkocki ]
+  db_index_change:
+    if:
+      - {{ files | match(regex=r/changelog\//) | some }}
+      - {{ source.diff.files | matchDiffLines(['<createIndex', '<dropIndex', 'CREATE INDEX', 'DROP INDEX'], caseSensitive=false) | some }}
+    run:
+      - action: add-label@v1
+        args:
+          label: "DB Index Changed"
+          color: "A32626"
+      - action: add-comment@v1
+        args:
+          comment: |
+            ⚠️ This PR contains changes to database indexes. A review from DB Index Specialist group is required.
+      - action: require-reviewers@v1
+        args:
+          # list of DB index specialist group
+          reviewers: [ vvozniuk-gscf, rwiktorski, bartkuzio ]
+
+has:
+  cucumber_changes: {{ files | match(regex=r/cucumber\//) | some }}

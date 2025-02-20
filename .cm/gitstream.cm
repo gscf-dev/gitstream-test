@@ -38,7 +38,7 @@ automations:
         args:
           # list of DB index specialist group
           reviewers: [ vvozniuk-gscf, rwiktorski, bartkuzio ]
-  testtttt:
+  db_index_change2:
     if:
       - {{ files | match(regex=r/changelog\//) | some }}
     run:

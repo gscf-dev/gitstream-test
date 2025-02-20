@@ -44,8 +44,12 @@ automations:
     run:
       - action: add-label@v1
         args:
-          label: "AAAAAAAA"
+          label: "DB Changed"
           color: "A32626"
+      - action: add-comment@v1
+        args:
+          comment: |
+            ⚠️ This PR contains changes to database. A review from DB Specialist group is required.
 
 has:
   cucumber_changes: {{ files | match(regex=r/cucumber\//) | some }}

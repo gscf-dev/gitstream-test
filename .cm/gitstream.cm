@@ -25,6 +25,23 @@ automations:
         args:
           # list of Cucumber code owners
           reviewers: [ YauheniBarvinski, katerynakomijn, matepapphu, mate-gscf, AnnaZawadzkaGSCF, obiro-gscf, zoltanmarlok, orslatkocki ]
+  db_index_change:
+    if:
+      - {{ files | match(regex=r/changelog\//) | some }}
+      - {{ source.diff.files | matchDiffLines(['<createIndex', '<dropIndex', 'CREATE INDEX', 'DROP INDEX'], caseSensitive=false) | some }}
+    run:
+      - action: add-label@v1
+        args:
+          label: "DB Index Changed"
+          color: "A32626"
+      - action: add-comment@v1
+        args:
+          comment: |
+            ⚠️ This PR contains changes to database indexes. A review from DB Index Specialist group is required.
+      - action: require-reviewers@v1
+        args:
+          # list of DB index specialist group
+          reviewers: [ vvozniuk-gscf, rwiktorski, bartkuzio ]
 
 has:
   cucumber_changes: {{ files | match(regex=r/cucumber\//) | some }}

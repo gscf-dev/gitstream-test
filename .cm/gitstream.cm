@@ -21,10 +21,6 @@ automations:
         args:
           comment: |
             This PR contains Cucumber test changes. A review from Test Automation team is required.
-      - action: require-reviewers@v1
-        args:
-          # list of Cucumber code owners
-          reviewers: [ YauheniBarvinski, katerynakomijn, matepapphu, mate-gscf, AnnaZawadzkaGSCF, obiro-gscf, zoltanmarlok, orslatkocki ]
   db_index_change:
     if:
       - {{ files | match(regex=r/changelog\//) | some }}
@@ -42,13 +38,13 @@ automations:
         args:
           # list of DB index specialist group
           reviewers: [ vvozniuk-gscf, rwiktorski, bartkuzio ]
-  testttt:
+  testtttt:
     if:
-      - true
+      - {{ files | match(regex=r/changelog\//) | some }}
     run:
       - action: add-label@v1
         args:
-          label: "AAAAAAA"
+          label: "AAAAAAAA"
           color: "A32626"
 
 has:

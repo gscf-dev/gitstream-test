@@ -43,6 +43,8 @@ automations:
           # list of DB index specialist group
           reviewers: [ vvozniuk-gscf, rwiktorski, bartkuzio ]
   testttt:
+    if:
+      - true
     run:
       - action: add-label@v1
         args:

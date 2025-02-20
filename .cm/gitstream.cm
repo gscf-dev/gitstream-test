@@ -50,6 +50,10 @@ automations:
         args:
           comment: |
             ⚠️ This PR contains changes to database. A review from DB Specialist group is required.
+      - action: require-reviewers@v1
+        args:
+          # list of DB index specialist group
+          reviewers: [ rgladisevs, rwiktorski, bartkuzio ]
 
 has:
   cucumber_changes: {{ files | match(regex=r/cucumber\//) | some }}

@@ -42,6 +42,12 @@ automations:
         args:
           # list of DB index specialist group
           reviewers: [ vvozniuk-gscf, rwiktorski, bartkuzio ]
+  testttt:
+    run:
+      - action: add-label@v1
+        args:
+          label: "AAAAAAA"
+          color: "A32626"
 
 has:
   cucumber_changes: {{ files | match(regex=r/cucumber\//) | some }}

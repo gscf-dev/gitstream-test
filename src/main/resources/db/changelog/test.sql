@@ -1,1 +1,1 @@
-create index 
+CREATE INDEX 

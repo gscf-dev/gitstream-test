@@ -1,1 +1,1 @@
-create nonclustered index
+create nonclustered nonclustered nonclustered index
